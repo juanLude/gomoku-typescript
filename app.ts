@@ -1,4 +1,4 @@
-console.log("hola");
+console.log("asda Juan");
 
 // This type represents the possible values that a player can have
 type Player = "Black" | "White" | null;
@@ -43,13 +43,11 @@ class MarkupGenerator {
 }
 
 const generator = new MarkupGenerator();
-const numRows = 2;
-const numBoxesPerRow = 4;
+const numRows = 7;
+const numBoxesPerRow = 7;
 const markup = generator.createMarkup(numRows, numBoxesPerRow);
 console.log(markup);
 
 // Append the markup to a target element with an ID
 const targetElement = document.getElementById("target");
-if (targetElement) {
-  targetElement.appendChild(markup);
-}
+targetElement?.appendChild(markup);
