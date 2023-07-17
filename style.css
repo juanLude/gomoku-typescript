@@ -47,7 +47,7 @@ body {
   background-color: blueviolet;
 }
 .box.available {
-  background-color: white;
+  background-color: rgb(29, 211, 42);
 }
 .box.available:hover {
   background-color: blue;
