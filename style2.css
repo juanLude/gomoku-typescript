@@ -105,3 +105,15 @@ button:hover {
   pointer-events: auto;
   justify-content: center;
 }
+
+.show-turn {
+  display: flex;
+  opacity: 1;
+  pointer-events: auto;
+  justify-content: center;
+  color: white;
+  margin: 0.5rem;
+}
+.show-turn.hide {
+  display: none;
+}

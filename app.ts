@@ -13,6 +13,9 @@ class GomokuGame {
   private boxes: HTMLElement[];
   private clickSound: HTMLAudioElement;
   private gameEnded: boolean; // flag variable to track game state
+  private getCurrentPlayerName(): string {
+    return this.currentPlayer === Player.Black ? "Black" : "White";
+  }
 
   constructor(
     numRows: number = 5,
@@ -29,6 +32,7 @@ class GomokuGame {
     this.clickSound = new Audio("click_sound.mp3");
     this.gameEnded = false;
 
+    // create game board
     for (let row = 0; row < this.numRows; row++) {
       this.board[row] = [];
       const line = document.createElement("div");
@@ -61,8 +65,15 @@ class GomokuGame {
         const resultContainer = document.querySelector(
           ".result-container"
         ) as HTMLElement;
-        resultContainer.textContent = "Player " + this.currentPlayer + " wins!";
+        resultContainer.textContent =
+          this.currentPlayer === Player.Black ? "Black wins!" : "White wins!";
+
         resultContainer.classList.add("show");
+
+        const turnLabel = document.querySelector(".show-turn") as HTMLElement;
+        turnLabel.classList.add("hide");
+        //turnLabel.textContent = "";
+
         this.gameEnded = true;
         return;
       } else if (this.checkDraw()) {
@@ -76,6 +87,11 @@ class GomokuGame {
       } else {
         this.currentPlayer =
           this.currentPlayer === Player.Black ? Player.White : Player.Black;
+        const turnLabel = document.querySelector(".show-turn") as HTMLElement;
+        turnLabel.textContent =
+          this.currentPlayer === Player.Black
+            ? "Turn for Black"
+            : "Turn for White";
       }
     }
     this.playClickSound();
@@ -170,7 +186,8 @@ class GomokuGame {
 
     if (count >= this.winCondition) {
       const resultText = document.createElement("span");
-      resultText.textContent = "Player " + this.currentPlayer + " wins!";
+      resultText.textContent =
+        this.currentPlayer === Player.Black ? "Black wins!" : "White wins!";
 
       const resultContainer = document.querySelector(
         ".result-container"
@@ -234,12 +251,30 @@ class GomokuGame {
       ".result-container"
     ) as HTMLElement;
     resultContainer.classList.remove("show");
+
+    const turnLabel = document.querySelector(".show-turn") as HTMLElement;
+    turnLabel.classList.remove("hide");
+    // const turnLabel = document.createElement("div");
+    // turnLabel.classList.add("show-turn");
+    //turnLabel.textContent = `Turn for ${this.getCurrentPlayerName()}`;
+    this.playClickSound();
+    // this.render(document.getElementById("game-container")!);
+    // const turnLabel = document.querySelector(".show-turn") as HTMLElement;
+    // turnLabel.classList.add("show-turn");
+    // turnLabel.textContent = `Turn for ${this.getCurrentPlayerName()}`;
   }
   render(containerElement: HTMLElement): void {
     // containerElement.appendChild(this.container); this was before
     const resetButton = document.createElement("button");
     resetButton.textContent = "Reset";
-    resetButton.addEventListener("click", () => this.resetBoard());
+    resetButton.addEventListener("click", () => {
+      this.resetBoard();
+      //this.playClickSound();
+    });
+
+    const turnLabel = document.createElement("div");
+    turnLabel.classList.add("show-turn");
+    turnLabel.textContent = `Turn for ${this.getCurrentPlayerName()}`;
 
     const resultContainer = document.createElement("div");
     resultContainer.classList.add("result-container");
@@ -249,10 +284,13 @@ class GomokuGame {
 
     containerElement.appendChild(gameWrapper);
     containerElement.appendChild(resultContainer);
+    containerElement.appendChild(turnLabel);
+    console.log("pedro");
+
     containerElement.appendChild(resetButton);
   }
 }
 
-// create a Gomoku game object and let user input board size and winning condition
+// create a Gomoku game object and let user input board size and winning condition. Otherwise, let default settings
 const gomokuGame = new GomokuGame(8, 8, 5);
 gomokuGame.render(document.getElementById("game-container")!);
