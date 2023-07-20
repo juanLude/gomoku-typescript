@@ -72,7 +72,7 @@ class GomokuGame {
 
         const turnLabel = document.querySelector(".show-turn") as HTMLElement;
         turnLabel.classList.add("hide");
-        //turnLabel.textContent = "";
+        turnLabel.textContent = "";
 
         this.gameEnded = true;
         return;
@@ -82,6 +82,10 @@ class GomokuGame {
         ) as HTMLElement;
         resultContainer.textContent = "This is a draw!";
         resultContainer.classList.add("show");
+        const turnLabel = document.querySelector(".show-turn") as HTMLElement;
+        turnLabel.classList.add("hide");
+        turnLabel.textContent = "";
+
         this.gameEnded = true;
         return;
       } else {
@@ -254,6 +258,7 @@ class GomokuGame {
 
     const turnLabel = document.querySelector(".show-turn") as HTMLElement;
     turnLabel.classList.remove("hide");
+    turnLabel.textContent = "Turn for Black";
     // const turnLabel = document.createElement("div");
     // turnLabel.classList.add("show-turn");
     //turnLabel.textContent = `Turn for ${this.getCurrentPlayerName()}`;
@@ -292,5 +297,5 @@ class GomokuGame {
 }
 
 // create a Gomoku game object and let user input board size and winning condition. Otherwise, let default settings
-const gomokuGame = new GomokuGame(8, 8, 5);
+const gomokuGame = new GomokuGame(4, 4, 4);
 gomokuGame.render(document.getElementById("game-container")!);
