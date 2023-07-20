@@ -18,8 +18,8 @@ class GomokuGame {
   }
 
   constructor(
-    numRows: number = 5,
-    numColumns: number = 5,
+    numRows: number = 8,
+    numColumns: number = 8,
     winCondition: number = 5
   ) {
     this.numRows = numRows;
@@ -297,5 +297,5 @@ class GomokuGame {
 }
 
 // create a Gomoku game object and let user input board size and winning condition. Otherwise, let default settings
-const gomokuGame = new GomokuGame(4, 4, 4);
+const gomokuGame = new GomokuGame(8, 8, 5);
 gomokuGame.render(document.getElementById("game-container")!);
