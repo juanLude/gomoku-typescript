@@ -11,3 +11,5 @@ const gomokuGame = new GomokuGame(numRows, numColumns, winCondition);
 1. Install dependencies: 'npm'
 2. Start the server: 'npx serve'
 3. Go to [localhost:3000](http://localhost:3000)
+
+Extra feature added: sound when user clicks on the board. I think it enhances the overall gaming experience.

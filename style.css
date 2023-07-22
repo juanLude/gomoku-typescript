@@ -77,8 +77,8 @@ button {
   border-radius: 0px 0px 4px 4px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
-  width: 100%; /* Add this line to make the button stretch horizontally */
-  box-sizing: border-box; /* Include this line to account for padding and border in the width */
+  width: 100%;
+  box-sizing: border-box;
   /* margin-top: 1rem; */
 }
 
@@ -95,8 +95,8 @@ button:hover {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
-  width: 100%; /* Add this line to make the button stretch horizontally */
-  box-sizing: border-box; /* Include this line to account for padding and border in the width */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .result-container.show {

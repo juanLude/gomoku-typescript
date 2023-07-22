@@ -35,8 +35,10 @@ class GomokuGame {
     // create game board
     for (let row = 0; row < this.numRows; row++) {
       this.board[row] = [];
-      const line = document.createElement("div");
-      line.classList.add("row");
+      const line = document.createElement("div"); // create line element to represent the current row
+      line.classList.add("row"); // row class is used for styling purposes to arrange the boxes horizontally in a row
+      // this loop iterates through each column in the current row.
+      // the variable column is used to keep track of the current column being processed.
       for (let column = 0; column < this.numColumns; column++) {
         this.board[row][column] = 0;
         const box = document.createElement("div");
@@ -48,14 +50,15 @@ class GomokuGame {
       }
     }
   }
-
+  // handler for click events on the boxes
   handleBoxClick(row: number, column: number): void {
     if (this.gameEnded) {
       return; // do nothing if the game has ended
     }
+    // if the clicked box is empty, assign the current player's value
     if (this.board[row][column] === Player.None) {
       this.board[row][column] = this.currentPlayer;
-
+      // calculate the index of the clicked box in the array
       const boxIndex = row * this.numColumns + column;
       this.boxes[boxIndex].classList.add(
         this.currentPlayer === Player.Black ? "black" : "white"
@@ -100,27 +103,27 @@ class GomokuGame {
     }
     this.playClickSound();
   }
-
+  // play a click sound
   playClickSound(): void {
-    this.clickSound.currentTime = 0; // rewind the sound to the beginning
     this.clickSound.play();
   }
 
   checkDraw() {
-    // Iterate through the board and check if any empty positions are available
+    // iterate through the board and check if any empty positions are available
     for (let row = 0; row < this.numRows; row++) {
       for (let column = 0; column < this.numColumns; column++) {
         if (this.board[row][column] === Player.None) {
-          return false; // Empty position found, game is not a draw
+          return false; // empty position found, game is not a draw
         }
       }
     }
 
-    return true; // All positions are filled, game is a draw
+    return true; // all positions are filled, game is a draw
   }
 
   checkWin(row: number, column: number): boolean {
-    const player = this.board[row][column]; //retrieve the player number
+    //retrieve the player number
+    const player = this.board[row][column];
 
     // check horizontal
     let count = 1; // keep track of the number of consecutive pieces of the same player in a horizontal direction
@@ -238,7 +241,7 @@ class GomokuGame {
   }
 
   resetBoard(): void {
-    this.gameEnded = false; // Reset gameEnded to false
+    this.gameEnded = false; // reset gameEnded to false
     this.currentPlayer = Player.Black;
 
     for (let row = 0; row < this.numRows; row++) {
@@ -259,39 +262,31 @@ class GomokuGame {
     const turnLabel = document.querySelector(".show-turn") as HTMLElement;
     turnLabel.classList.remove("hide");
     turnLabel.textContent = "Turn for Black";
-    // const turnLabel = document.createElement("div");
-    // turnLabel.classList.add("show-turn");
-    //turnLabel.textContent = `Turn for ${this.getCurrentPlayerName()}`;
     this.playClickSound();
-    // this.render(document.getElementById("game-container")!);
-    // const turnLabel = document.querySelector(".show-turn") as HTMLElement;
-    // turnLabel.classList.add("show-turn");
-    // turnLabel.textContent = `Turn for ${this.getCurrentPlayerName()}`;
   }
+
   render(containerElement: HTMLElement): void {
-    // containerElement.appendChild(this.container); this was before
+    // create a reset button
     const resetButton = document.createElement("button");
     resetButton.textContent = "Reset";
     resetButton.addEventListener("click", () => {
       this.resetBoard();
-      //this.playClickSound();
     });
-
+    // create and set up the turn label
     const turnLabel = document.createElement("div");
     turnLabel.classList.add("show-turn");
     turnLabel.textContent = `Turn for ${this.getCurrentPlayerName()}`;
-
+    // create and set up the result container
     const resultContainer = document.createElement("div");
     resultContainer.classList.add("result-container");
 
+    // create a game wrapper to hold the game board (this.container)
     const gameWrapper = document.createElement("div");
     gameWrapper.appendChild(this.container);
 
     containerElement.appendChild(gameWrapper);
     containerElement.appendChild(resultContainer);
     containerElement.appendChild(turnLabel);
-    console.log("pedro");
-
     containerElement.appendChild(resetButton);
   }
 }
